@@ -1,2 +1,45 @@
-<h1>Member Portal</h1>
 
+
+<div style="width: 1000px; padding:10px; display: block;
+margin-left: auto;
+margin-right: auto;">
+  <div style="width: 1000px; text-align: center;"><h1>Member Portal</h1></div>
+<div  id="personalDetails" class="personalDetails"  style="width: 500px; padding:10px; display: block;
+margin-left: auto;
+margin-right: auto;" class="row m-0 form-field-margin">
+<div> <label> Personal Detalis  </label></div>
+<form >
+<div>
+
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0">
+    <span matPrefix>$&nbsp;</span>
+    <span matSuffix>.00</span>
+  </mat-form-field>
+
+</div>
+<div> <label> Name:  <input type="text" class="filter" id="fullName" placeholder="Enter Name"  /> </label></div>
+<div> <label> Date Of Birth: <input type="text" class="filter" id="Dob" placeholder="Enter Dob"  /> </label></div>
+<div> <label> Age: <input type="text" class="filter" id="age" placeholder="Enter Age"  /> </label></div>
+<div> <button mat-button>Next</button>  </div>
+</form>
+</div>
+
+
+
+<div  id="quote" class="quote" style="width: 500px; padding:10px; display: block;
+margin-left: auto;
+margin-right: auto;">
+  <div> <label> Quote  </label></div>
+  <div> <label> Occupation: <input type="text" class="filter" id="age" placeholder="Select Occupation"  /> </label></div>
+  <div> <label> Sum Insured: <input type="text" class="filter" id="age" placeholder="Select Sum Insured"  /> </label></div>
+  <div> <label> Monthly Expenses Total: <input type="text" class="filter" id="age" placeholder="Select Expenses"  />  </label></div>
+  <div> <label> State: <input type="text" class="filter" id="age" placeholder="Select State"  />  </label></div>
+  <div> <label> Post Code:  <input type="text" class="filter" id="age" placeholder="enter  post code"  />  </label></div>
+  <div> <button mat-button>Previous</button>  </div>
+  <div> <button mat-button>Calculate</button>  </div>
+  </div>
+
+
+</div>
