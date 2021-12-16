@@ -12,19 +12,19 @@
     width: 1000px; text-align: center;
   }
 
-  .personalDetails .mat-form-field + .mat-form-field {
+  .inpt-container .mat-form-field + .mat-form-field {
     margin-left: 8px;
   }
 
-  .example-right-align {
+  .inpt-right-align {
     text-align: right;
   }
 
-  input.example-right-align::-webkit-outer-spin-button,
-  input.example-right-align::-webkit-inner-spin-button {
+  input.inpt-right-align::-webkit-outer-spin-button,
+  input.inpt-right-align::-webkit-inner-spin-button {
     display: none;
   }
 
-  input.example-right-align {
+  input.inpt-right-align {
     -moz-appearance: textfield;
   }

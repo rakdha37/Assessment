@@ -6,6 +6,9 @@ import { MemberportalComponent } from './memberportal/memberportal.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import  { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import {MatButtonModule} from '@angular/material/button';
     MainRoutingModule,
     FormsModule, ReactiveFormsModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule
   ]
 })
 export class MainModule { }
