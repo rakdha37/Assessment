@@ -22,45 +22,77 @@
     class="row m-0 form-field-margin"
   >
     <div><label> Personal Detalis </label></div>
-    <form >
-      <div>
-        <mat-label>Full Name</mat-label>
-        <mat-form-field >
-
-          <input matInput #fullName formControlName="fullName" placeholder="Full Name"
-             matNativeControl maxlength="50">
-             <mat-hint align="end">{{fullName.value.length}} / 50</mat-hint>
-        </mat-form-field>
-
-      </div>
-      <div>
-        <mat-label>Date Of Birth: </mat-label>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Choose a date</mat-label>
-          <input matInput [matDatepicker]="picker">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-      </div>
-      <div>
-        <mat-label>Age: </mat-label>
-        <mat-form-field >
-          <input matInput formControlName="Age" placeholder="Age"
-             matNativeControl>
-        </mat-form-field>
-      </div>
-      <div>
-        <button
-          mat-button
-          mat-flat-button
-          color="accent"
-          (click)="showSheet2()"
-        >
-          Next
-        </button>
-      </div>
+    <form [formGroup]="personalDetailForm">
+      <table>
+        <tr>
+          <td class="tdLeft"><mat-label>Full Name</mat-label></td>
+          <td class="tdright">
+            <mat-form-field>
+              <input
+                matInput
+                #fullName
+                formControlName="fullName"
+                placeholder="Full Name"
+                [required]="true"
+                matNativeControl
+                maxlength="50"
+              />
+              <mat-hint align="end">{{ fullName.value.length }} / 50</mat-hint>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="tdLeft"><mat-label>Date Of Birth: </mat-label></td>
+          <td class="tdright">
+            <mat-form-field appearance="fill">
+              <mat-label>Choose a date</mat-label>
+              <input
+                matInput
+                formControlName="dateOfBirth"
+                [max]="maxDate"
+                [matDatepicker]="picker"
+                (dateInput)="addEvent($event)"
+                [required]="true"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="tdLeft"><mat-label>Age: </mat-label></td>
+          <td class="tdright">
+            <mat-form-field>
+              <input
+                matInput
+                formControlName="age"
+                placeholder="Age"
+                readonly
+                [required]="true"
+                matNativeControl
+              />
+              <mat-hint align="end"
+                >Age will be calculated on Dob select</mat-hint
+              >
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center; padding-top: 20px">
+            <button
+              mat-button
+              mat-flat-button
+              color="accent"
+              (click)="showSheet2()"
+            >
+              Next
+            </button>
+          </td>
+        </tr>
+      </table>
     </form>
   </div>
 
@@ -77,76 +109,124 @@
     *ngIf="showStep == 2"
   >
     <div><label> Quote </label></div>
-    <div>
-      <mat-label> Occupation:</mat-label>
-      <mat-form-field>
-        <mat-select
-          formControlName="occupation"
-          placeholder="Occupation"
-          matNativeControl
-        >
-          <mat-option *ngFor="let occ of occupation" [value]="occ.occupation">
-            {{ occ.occupation }}
-          </mat-option>
-        </mat-select>
-        <!-- <mat-hint *ngIf="claimantDetailsForm.get('relationship').invalid && isClaimantDetailsFormValid">
-          Please Select Claimant Relationship
-        </mat-hint> -->
-      </mat-form-field>
-    </div>
-    <div>
-
-      <mat-label> Sum Insured:</mat-label>
-      <mat-form-field >
-
-        <input matInput type="number" class="inpt-right-align" placeholder="enter Sum Insured">
-        <span matPrefix>$&nbsp;</span>
-        <span matSuffix>.00</span>
-      </mat-form-field>
-
-
-    </div>
-    <div>
-      <mat-label>  Monthly Expenses Total:</mat-label>
-      <mat-form-field >
-
-        <input matInput type="number" class="inpt-right-align" placeholder="enter Total Monthly Expenses">
-        <span matPrefix>$&nbsp;</span>
-        <span matSuffix>.00</span>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-label> State:</mat-label>
-      <mat-form-field>
-        <mat-select
-          formControlName="states"
-          placeholder="State"
-          matNativeControl
-        >
-          <mat-option *ngFor="let state of states" [value]="state.stateCode">
-            {{ state.stateName }}
-          </mat-option>
-        </mat-select>
-        <!-- <mat-hint *ngIf="claimantDetailsForm.get('relationship').invalid && isClaimantDetailsFormValid">
-          Please Select Claimant Relationship
-        </mat-hint> -->
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-label>Post code</mat-label>
-      <mat-form-field >
-
-        <input matInput #postalCode formControlName="postalCode"  maxlength="4" placeholder="Ex. 1234">
-        <mat-hint align="end">{{postalCode.value.length}} / 4</mat-hint>
-      </mat-form-field>
-    </div>
-    <div>
-      <button mat-button mat-flat-button color="accent" (click)="showSheet1()">
-        Previous
-      </button>
-    </div>
-    <div>
-      <button mat-button mat-flat-button color="accent">Calculate</button>
-    </div>
+    <form [formGroup]="quoteForm">
+      <table style="formtable">
+        <tr>
+          <td class="tdLeft"><mat-label>Occupation: </mat-label></td>
+          <td class="tdright">
+            <mat-form-field>
+              <mat-select
+                formControlName="occupation"
+                placeholder="Occupation"
+                matNativeControl
+                [required]="true"
+              >
+                <mat-option
+                  *ngFor="let occ of occupation"
+                  [value]="occ.occupation"
+                >
+                  {{ occ.occupation }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="tdLeft"><mat-label> Sum Insured:</mat-label></td>
+          <td class="tdright">
+            <mat-form-field>
+              <input
+                matInput
+                formControlName="sumInsured"
+                type="number"
+                class="inpt-right-align"
+                placeholder="enter Sum Insured"
+                [required]="true"
+              />
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="tdLeft">
+            <mat-label>Monthly Expenses Total: </mat-label>
+          </td>
+          <td class="tdright">
+            <mat-form-field>
+              <input
+                matInput
+                type="number"
+                formControlName="monthlyExpenses"
+                class="inpt-right-align"
+                placeholder="enter Total Monthly Expenses"
+                [required]="true"
+              />
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="tdLeft"><mat-label>State: </mat-label></td>
+          <td class="tdright">
+            <mat-form-field>
+              <mat-select
+                formControlName="states"
+                placeholder="State"
+                matNativeControl
+                [required]="true"
+              >
+                <mat-option
+                  *ngFor="let state of states"
+                  [value]="state.stateCode"
+                >
+                  {{ state.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="tdLeft"><mat-label>Post code: </mat-label></td>
+          <td class="tdright">
+            <mat-form-field>
+              <input
+                matInput
+                #postalCode
+                formControlName="postCode"
+                maxlength="4"
+                placeholder="Ex. 1234"
+                [required]="true"
+              />
+              <mat-hint align="end">{{ postalCode.value.length }} / 4</mat-hint>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="tdLeft">
+            <button
+              mat-button
+              mat-flat-button
+              color="accent"
+              (click)="showSheet1()"
+            >
+              Previous
+            </button>
+          </td>
+          <td class="tdright">
+            <button
+              mat-button
+              mat-flat-button
+              color="accent"
+              (click)="calculateTotal()"
+            >
+              Calculate
+            </button>
+            {{ totalAmount }}
+          </td>
+        </tr>
+      </table>
+    </form>
   </div>
 </div>
