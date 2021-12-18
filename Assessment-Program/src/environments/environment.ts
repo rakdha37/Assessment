@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  AssessmentApiBaseUrl: "http://localhost:5000/quote",
+  endPoints: {
+    quoate: {
+      getOccupation: "/getoccupation",
+      getStates: "/getstates",
+      calculateTotal: "/calculatetotal"
+    }
+  }
 };
 
 /*

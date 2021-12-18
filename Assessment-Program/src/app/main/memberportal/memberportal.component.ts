@@ -4,7 +4,7 @@ import { CalculationService } from '../../services/calculation.service';
 import { OccupationAndRattingService } from '../../services/occupation-and-ratting.service';
 import { PersonalDetails } from '../../Interface/PersonalDetails';
 import { Quote } from '../../Interface/quote';
-
+import { CalcuateParams } from '../../Interface/calcuateParams';
 @Component({
   selector: 'app-memberportal',
   templateUrl: './memberportal.component.html',
@@ -19,6 +19,7 @@ export class MemberportalComponent implements OnInit {
   personalDetailFormObject: PersonalDetails;
   quoteFormObject: Quote;
   totalAmount: number;
+  calcuParams: CalcuateParams;
 
   constructor(
     private occupationAndRattingService: OccupationAndRattingService,
@@ -41,8 +42,13 @@ export class MemberportalComponent implements OnInit {
 
   ngOnInit(): void {
     this.showStep = 1;
-    this.occupation = this.occupationAndRattingService.getOccupations();
-    this.states = this.occupationAndRattingService.getStates();
+
+    this.occupationAndRattingService.getOccupations().subscribe(resp => {
+      this.occupation =resp;     } );
+
+      this.occupationAndRattingService.getStates().subscribe(resp => {
+        this.states =resp;     } );
+
     this.maxDate = new Date();
   }
 
@@ -55,17 +61,15 @@ export class MemberportalComponent implements OnInit {
 
   calculateTotal(): void {
     let totalCalAmount: number;
-    let occ = this.quoteForm.controls['occupation'].value;
-    let factor = this.occupationAndRattingService.getRatingByOccupations(occ);
-    let age = this.personalDetailForm.controls['age'].value;
-    let sumInsured = this.quoteForm.controls['sumInsured'].value;
+
+    this.calcuParams = {
+      age:this.personalDetailForm.controls['age'].value,
+      occupation: this.quoteForm.controls['occupation'].value,
+      sumInsured: this.quoteForm.controls['sumInsured'].value
+    };
 
     if (!this.quoteForm.invalid) {
-      totalCalAmount = this.calculationService.getRatingByOccupations(
-        sumInsured,
-        factor,
-        age
-      );
+      totalCalAmount = this.calculationService.getRatingByOccupations(this.calcuParams);
       this.totalAmount = totalCalAmount;
     }
   }
@@ -77,6 +81,5 @@ export class MemberportalComponent implements OnInit {
       currentDate - selectedDate
     );
 
-    // this.personalDetailForm.controls.["age"].setValue(this.personalDetailFormObject.Age);
   }
 }
